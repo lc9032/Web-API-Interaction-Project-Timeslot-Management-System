@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <header th:replace="~{layout-header :: header}"></header>
+    <h1>Create a New Person</h1>
+
+    <form method="post" action="/person/save">
+        <label>First Name:</label>
+        <input type="text" name="firstName" required/><br/>
+
+        <label>Last Name:</label>
+        <input type="text" name="lastName" required/><br/>
+
+        <br>
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

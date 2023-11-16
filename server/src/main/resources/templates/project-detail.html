@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:replace="~{layout-header :: header}"></header>
+<h1>Project detail</h1>
+
+<div>
+    <p><strong>ID:</strong> <span th:text="${projectDetails.projectId}"></span></p>
+    <p><strong>Name:</strong> <span th:text="${projectDetails.projectName}"></span></p>
+    <p><strong>Description:</strong> <span th:text="${projectDetails.projectDescription}"></span></p>
+    <p><strong>Scheduled Effort:</strong> <span th:text="${projectDetails.scheduledEffort}"></span></p>
+</div>
+
+<h2>Assigned Persons</h2>
+<div th:each="projectPerson : ${projectDetails.projectPersonDTOS}">
+    <div>
+        <p><strong>Person ID:</strong> <span th:text="${projectPerson.personId}"></span></p>
+        <p><strong>Person:</strong> <span th:text="${projectPerson.personFullName}"></span></p>
+        <p><strong>Hours:</strong> <span th:text="${projectPerson.hours}"></span></p>
+        <p><strong>Percentage (%):</strong> <span th:text="${projectPerson.percentage}"></span></p>
+    </div>
+    <div>
+        <h4>Time Slots:</h4>
+        <ul>
+            <li th:each="timeSlotList : ${projectPerson.timeSlotLists}">
+                <p>
+                    <span th:text="${timeSlotList.id}"></span>,
+                    <span th:text="${timeSlotList.date}"></span>,
+                    <span th:text="${timeSlotList.startTime}"></span>-
+                    <span th:text="${timeSlotList.endTime}"></span>,
+                    <span th:text="${timeSlotList.description}"></span>
+                </p>
+            </li>
+        </ul>
+    </div>
+    <div><hr style="width: 20%; margin: 0;"/></div>
+</div>
+
+<div th:if="${projectDetails.totalPages > 1}">
+    <h4>Page:
+        <span th:each="pageNumber : ${#numbers.sequence(0, projectDetails.totalPages - 1)}">
+            <a th:href="@{/project/{id}(id=${projectDetails.projectId}, page=${pageNumber})}" class="page-link" th:text="${pageNumber + 1}"></a>
+            <span th:unless="${pageNumber == projectDetails.totalPages - 1}"> | </span>
+        </span>
+    </h4>
+</div>
+
+<p><a th:href="@{/project/assign(projectId=${projectDetails.projectId}, sourcePage='project-detail')}">Assign Person</a></p>
+
+<br>
+
+<a th:if="${sourcePage == 'person-detail'}" th:href="@{/person/{id}(id=${personId})}">Back to Person detail</a>
+<a th:if="${sourcePage == 'project'}" href="/project/" th:href="@{/project/}">Back to Projects</a><br>
+
+<br>
+
+<form th:action="@{/project/{id}/delete(id=${projectDetails.projectId})}" method="post">
+    <button type="submit">Delete Project</button>
+</form>
+
+</body>
+</html>

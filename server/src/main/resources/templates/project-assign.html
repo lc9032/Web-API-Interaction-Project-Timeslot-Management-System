@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:replace="~{layout-header :: header}"></header>
+<h1>Assign Project to Person</h1>
+
+<form th:action="@{/project/assign}" method="post">
+    <div>
+        <label for="person">Select Person:</label>
+        <select id="person" name="personId" required>
+            <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.firstName + ' ' + person.lastName}"></option>
+        </select>
+
+        <label for="project">Select Project:</label>
+        <select id="project" name="projectId" required>
+            <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+        </select>
+    </div>
+
+    <input type="hidden" name="sourcePage" th:value="${sourcePage}" />
+    <button type="submit">Assign Project</button>
+</form>
+
+<br>
+
+</body>
+</html>

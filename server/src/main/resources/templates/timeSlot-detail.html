@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <header th:replace="~{layout-header :: header}"></header>
+    <h1>Time Slot detail</h1>
+
+    <div>
+        <p><strong>ID:</strong> <span th:text="${timeslotDetails.timeSlotId}"></span></p>
+        <p><strong>Person:</strong> <span th:text="${timeslotDetails.personFullName}"></span> (ID: <span th:text="${timeslotDetails.personId}"></span>)</p>
+        <p><strong>Project:</strong> <span th:text="${timeslotDetails.projectName}"></span> (ID: <span th:text="${timeslotDetails.projectId}"></span>)</p>
+        <p><strong>Date:</strong> <span th:text="${timeslotDetails.date}"></span></p>
+        <p><strong>Start Time:</strong> <span th:text="${timeslotDetails.startTime}"></span></p>
+        <p><strong>End Time:</strong> <span th:text="${timeslotDetails.endTime}"></span></p>
+        <p><strong>Duration (Hours):</strong> <span th:text="${timeslotDetails.duration}"></span></p>
+        <p><strong>Description:</strong> <span th:text="${timeslotDetails.description}"></span></p>
+    </div>
+
+    <br>
+
+    <a th:if="${sourcePage == 'person-detail'}" th:href="@{/person/{id}(id=${personId})}">Back to Person detail</a>
+    <a th:if="${sourcePage == 'timeslots'}" href="/timeSlot/" th:href="@{/timeSlot/}">Back to Time Slots</a><br>
+
+    <br>
+
+    <form th:action="@{/timeSlot/{id}/delete(id=${timeslotDetails.timeSlotId})}" method="post">
+        <button type="submit">Delete Time Slot</button>
+    </form>
+
+</body>
+</html>

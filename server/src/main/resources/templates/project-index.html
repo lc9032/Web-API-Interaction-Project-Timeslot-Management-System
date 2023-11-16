@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<header th:replace="~{layout-header :: header}"></header>
+<main>
+  <h2>We have [[${projectLists.size()}]] projects in the system</h2>
+  <ul>
+    <li th:each="projectList : ${projectLists}">
+      <p><a th:href="@{/project/{projectId}(projectId=${projectList.id}, sourcePage='project')}"
+            th:text="${projectList.id + ', '
+                     + projectList.name + ', '
+                     + projectList.description + ', '
+                     + projectList.scheduledEffort}"></a>
+        <span th:if="${projectList.overAssigned}" style="color: red;"> over-assigned!</span>
+      </p>
+    </li>
+  </ul>
+  <p><a href="/project/create">New Project</a></p>
+</main>
+</body>
+</html>

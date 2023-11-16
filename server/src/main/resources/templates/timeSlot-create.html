@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:replace="~{layout-header :: header}"></header>
+    <h1>Create Time Slot</h1>
+
+    <form th:action="@{/timeSlot/create}" method="post" th:object="${timeSlotCreateDTO}">
+        <div>
+            <label for="personId">Select Person:</label>
+            <select id="personId" name="personId" required>
+                <option th:each="person : ${people}" th:value="${person.id}" th:text="${person.firstName + ' ' + person.lastName}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="projectId">Select Project:</label>
+            <select id="projectId" name="projectId" required>
+                <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+            </select>
+        </div>
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div>
+            <label for="startTime">Start Time:</label>
+            <input type="time" id="startTime" name="startTime" required>
+        </div>
+        <div>
+            <label for="endTime">End Time:</label>
+            <input type="time" id="endTime" name="endTime" required>
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="3" required></textarea>
+        </div>
+
+        <br>
+
+        <input type="hidden" name="sourcePage" th:value="${sourcePage}" />
+        <button type="submit">Add Timeslot</button>
+    </form>
+
+</body>
+</html>

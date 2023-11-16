@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header th:replace="~{layout-header :: header}"></header>
+    <h1>Update Person</h1>
+
+    <form th:action="@{/person/{id}/update(id=${personList.id})}" th:object="${personList}" method="post">
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" th:field="*{firstName}" />
+
+        <br/>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" th:field="*{lastName}" />
+
+        <br/>
+        <br/>
+
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<header th:replace="~{layout-header :: header}"></header>
+
+<main>
+
+  <h2>We have [[${timeSlots.totalElements}]] time slots in the system</h2>
+  <ul>
+    <li th:each="timeslot : ${timeSlots.content}">
+      <p><a th:href="@{/timeSlot/{tid}(tid=${timeslot.id}, sourcePage='timeslots')}"
+            th:text="${timeslot.id + ', '
+                     + timeslot.date + ', '
+                     + timeslot.startTime + '-'
+                     + timeslot.endTime + ', '
+                     + timeslot.description}"></a></p>
+    </li>
+  </ul>
+
+  <div th:if="${timeSlots.totalPages > 1}">
+    <h4>Page:
+      <span th:each="pageNumber : ${#numbers.sequence(0, timeSlots.totalPages - 1)}">
+            <a th:href="@{/timeSlot/(page=${pageNumber})}" class="page-link" th:text="${pageNumber + 1}"></a>
+            <span th:unless="${pageNumber == timeSlots.totalPages - 1}"> | </span>
+        </span>
+    </h4>
+  </div>
+
+  <p><a href="/timeSlot/create?sourcePage=timeSlot">New Time Slot</a></p>
+</main>
+
+
+
+</body>
+</html>

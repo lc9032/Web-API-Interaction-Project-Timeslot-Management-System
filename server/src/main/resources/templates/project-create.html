@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<header th:replace="~{layout-header :: header}"></header>
+<h1>Create a New Project</h1>
+
+<form method="post" action="/project/save">
+  <div>
+    <label>Name:</label>
+    <input type="text" name="name" required/><br/>
+  </div>
+  <div>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="3" required></textarea>
+  </div>
+  <div>
+    <label>Scheduled Effort:</label>
+    <input type="number" name="scheduledEffort" required/><br/>
+  </div>
+  <br>
+
+  <button type="submit">Save</button>
+</form>
+</body>
+</html>
